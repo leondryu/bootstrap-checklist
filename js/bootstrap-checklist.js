@@ -1,15 +1,8 @@
 /* =========================================================
  * bootstrap-checklist.js v1.0.0
  * =========================================================
- * Copyright 2017 leon zhang
+ * Copyright 2017 leondryu
  * ========================================================= 
- * 一、设计
- *  1、setCheck,setUncheck,setSelect,setUnselect，将silent的决定放入参数中
-       以便外部调用时，灵活决定是否触发事件，如果参数为空或false，不触发。
-    2、公有，私有函数，都设计成Prototype，以便获取私有属性
-    3、check和select分开
-    4、私有属性的设置，极大的方便了插件的多实例。
-
  */
 
 
@@ -32,7 +25,6 @@
 
   //——————————————————————————————————————————————————Constructor
   var Checklist = function(element,options){
-    //私有变量
     this.$element = $(element);
     this.elementId = element.id;
 
@@ -153,79 +145,57 @@
   }
 
   Checklist.prototype.setCheck = function(param,silent){
-    //判断是否启用checkbox
     if(!this.options.showCheckbox) return;
     var li = this.convertIdentifier(param);
-    //check没有单选或多选一说，按常规，必然多选。
-    //判断状态
     var isChecked = li.data('checked');
     if(isChecked) return;
-    //修改状态
     li.data('checked',true);
-    //修改样式
     li.find('.state-icon')
         .removeClass()
         .addClass('state-icon '+this.options.settings['on']);
-    //触发事件
     if(silent!=undefined && silent){
       this.$element.trigger('onCheck',li);
     }
   }
 
   Checklist.prototype.setUncheck = function(param,silent){
-    //判断是否启用checkbox
     if(!this.options.showCheckbox) return;
     var li = this.convertIdentifier(param);
-    //判断状态
     var isChecked = li.data('checked');
     if(!isChecked) return;
-    //修改状态
     li.data('checked',false);
-    //修改样式
     li.find('.state-icon')
         .removeClass()
         .addClass('state-icon '+this.options.settings['off']);
-    //触发事件
     if(silent!=undefined && silent){
       this.$element.trigger('onUncheck',li);
     }
   }
   Checklist.prototype.setSelect = function(param,silent){
     var li = this.convertIdentifier(param);
-    //是否单选
     if(!this.options.multiselect){
       this.unSelectAll();
     }
-    //判断状态
     var isSelected = li.data('selected');
     if(isSelected) return;
-    //同步checkbox
     if(this.options.syncCheck){
       this.setCheck(li);
     }
-    //修改状态
     li.data('selected',true);
-    //修改class
     li.addClass(this.options.settings.style + this.options.settings.color);/*remove the 'active' class to avoid bootstrap default change color behavior.' active'*/
-    //触发事件
     if(silent!=undefined && silent){
       this.$element.trigger('onSelect',li);
     }
   }
   Checklist.prototype.setUnselect = function(param,silent){
     var li = this.convertIdentifier(param);
-    //判断状态
     var isSelected = li.data('selected');
     if(!isSelected) return;
-    //同步checkbox
     if(this.options.syncCheck){
       this.setUncheck(li);
     }
-    //修改状态
     li.data('selected',false);
-    //修改class
     li.removeClass(this.options.settings.style + this.options.settings.color);/*remove the 'active' class to avoid bootstrap default change color behavior.' active'*/
-    //触发事件
     if(silent!=undefined && silent){
       this.$element.trigger('onUnselect',li);
     }
