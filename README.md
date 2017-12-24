@@ -37,7 +37,7 @@ var testData = [
 ```
 
 1. each object in the Array is a li(DOM Element)'s data.
-2. the data(id,name,checked,selected) were stored in <font color=red size=20 >li(DOM Element)</font> by jquery method data(),so you cant find the data in DOM structure, but you can retrieve it via data() method.
+2. the data(id,name,checked,selected) were stored in li(DOM Element) by jquery method data(),so you cant find the data in DOM structure, but you can retrieve it via data() method.
 
 
 ## Options
