@@ -36,8 +36,8 @@
       setUncheck: $.proxy(this.setUncheck, this),
       setSelect: $.proxy(this.setSelect, this),
       setUnselect: $.proxy(this.setUnselect, this),
-      unSelectAll:$.proxy(this.unSelectAll, this),
-      unCheckAll:$.proxy(this.unCheckAll, this)
+      unselectAll:$.proxy(this.unselectAll, this),
+      uncheckAll:$.proxy(this.uncheckAll, this)
     }
   }
 
@@ -174,7 +174,7 @@
   Checklist.prototype.setSelect = function(param,silent){
     var li = this.convertIdentifier(param);
     if(!this.options.multiselect){
-      this.unSelectAll();
+      this.unselectAll();
     }
     var isSelected = li.data('selected');
     if(isSelected) return;
@@ -200,7 +200,7 @@
       this.$element.trigger('onUnselect',li);
     }
   }
-  Checklist.prototype.unCheckAll = function(){
+  Checklist.prototype.uncheckAll = function(){
     var _this = this;
     $.each(this.$element.find('li'),function(){
       if($(this).data('checked')){
@@ -208,7 +208,7 @@
       }
     });
   }
-  Checklist.prototype.unSelectAll = function(){
+  Checklist.prototype.unselectAll = function(){
     var _this = this;
     $.each(this.$element.find('li'),function(){
       if($(this).data('selected')){
