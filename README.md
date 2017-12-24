@@ -97,10 +97,10 @@ Selects a specific li element by its id.
 Unselects a specific li element by its id.
 - parameter is the same as setCheck.
 
-##### unSelectAll()
+##### unselectAll()
 Unselects all li element.
 
-##### unCheckAll()
+##### uncheckAll()
 Unchecks all li element.
 
 ##### getCheckedData()
