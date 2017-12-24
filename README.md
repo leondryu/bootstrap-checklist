@@ -7,19 +7,19 @@ bootstrap-checklist is a jquery plug-in which provide a list with checkbox. Ther
 
 ### Usage
 the DOM element
-```
+```html
 <ul id="someId" ></ul>
 ```
 initialization
 
-```
+```javascript
 $('#someId').checklist({
     url:'/somepath/test.json'
 });
 ```
 ## Data Structure
 
-```
+```javascript
 var testData = [
     {
         id:'id_1',
@@ -35,13 +35,15 @@ var testData = [
     }
 ]
 ```
+
 1. each object in the Array is a li(DOM Element)'s data.
-1. the data(id,name,checked,selected) were stored in <font color=red size=20 >li(DOM Element)</font> by jquery method data(),so you cant find the data in DOM structure, but you can retrieve it via data() method.
+2. the data(id,name,checked,selected) were stored in <font color=red size=20 >li(DOM Element)</font> by jquery method data(),so you cant find the data in DOM structure, but you can retrieve it via data() method.
+
 
 ## Options
 ##### Example
 
-```
+```javascript
 $('#someId').checklist({
     url:'/somePath/someMethod.do',
     multiselect:false,
@@ -50,6 +52,7 @@ $('#someId').checklist({
     }
 });
 ```
+
 ### List of Options
 ##### url
 String. Checklist will use this url to retrieve the Data with jquery.ajax method.
@@ -68,7 +71,8 @@ Object. Be noticed this is a javascript Object, not a string. It contains 4 vari
 
 ## Methods
 Example
-```
+
+```javascript
 1,
 var result = $('#someId').checklist('getCheckedData');
 2,
@@ -104,7 +108,8 @@ Returns a Array containing the checked li element data, each data is a javascrip
 
 ## Events
 Example
-```
+
+```javascript
 $('#someId').checklist({
     onSelect:function(event,li){
         //callback function body
