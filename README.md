@@ -69,8 +69,8 @@ Boolean(Default true). Just as what its name is.
 Boolean(Default true). if it is setted to be true, checkbox will be checked when you select a row. No matter how you select a row, either click the row or use Checklist's setSelect method.
 ##### settings
 Object. Be noticed this is a javascript Object, not a string. It contains 4 variables.
-1. color:String. Determines what color will be displayed when row are selected. It is based on bootstrap style, you can input 'primary','success','info','warning','danger'.
-2. style. String(Default 'list-group-item-'). 
+1. color:String. Font color for those li element been selected. Hexadecimal value or color value are accepted, e.g.'#FFFFFF' or 'red'. (Default '#FFFFFF')
+2. backgroud_color:String. Li element backgroud-color when they are selected. Hexadecimal value or color value are accepted, e.g.'#FFFFFF' or 'red'. (Default '#428BCA')
 3. on. String(Default 'glyphicon glyphicon-check'), checked box icon.
 4. off. String(Default 'glyphicon glyphicon-unchecked'), uncheck box icon.
 

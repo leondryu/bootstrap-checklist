@@ -17,8 +17,8 @@
     syncCheck:true,
     showCheckbox:true,
     settings:{
-      color:'primary',
-      style:'list-group-item-',
+      color:'#FFFFFF',
+      background_color:'#428BCA',
       on:'glyphicon glyphicon-check',
       off:'glyphicon glyphicon-unchecked'
     }
@@ -82,7 +82,8 @@
       $li.css('cursor', 'pointer');
 
       if($li.data('selected')){
-        $li.addClass(_this.options.settings.style + _this.options.settings.color);
+        //$li.addClass(_this.options.settings.style + _this.options.settings.color);
+        $li.css('color',_this.options.settings.color).css('background-color',_this.options.settings.background_color);
       }
 
       if($li.find('.state-icon').length == 0 && _this.options.showCheckbox) {
@@ -212,8 +213,8 @@
     
     li.data('selected',true);
     
-    li.addClass(this.options.settings.style + this.options.settings.color);/*remove the 'active' class to avoid bootstrap default change color behavior.' active'*/
-    
+    //li.addClass(this.options.settings.style + this.options.settings.color);/*remove the 'active' class to avoid bootstrap default change color behavior.' active'*/
+    li.css('color',this.options.settings.color).css('background-color',this.options.settings.background_color);
     if(silent!=undefined && silent){
       this.$element.trigger('onSelect',li);
     }
@@ -230,8 +231,8 @@
     
     li.data('selected',false);
     
-    li.removeClass(this.options.settings.style + this.options.settings.color);/*remove the 'active' class to avoid bootstrap default change color behavior.' active'*/
-    
+    //li.removeClass(this.options.settings.style + this.options.settings.color);/*remove the 'active' class to avoid bootstrap default change color behavior.' active'*/
+    li.css('color','#000000').css('background-color','#FFFFFF');
     if(silent!=undefined && silent){
       this.$element.trigger('onUnselect',li);
     }
@@ -252,33 +253,6 @@
       }
     });
   }
-  Checklist.prototype.toggleSelectedState = function(li){
-    var isChecked = li.find('input').is(':checked');
-    isChecked = !isChecked;
-    if (isChecked) {
-      li.addClass(this.options.settings.style + this.options.settings.color + ' active');
-    } else {
-      li.removeClass(this.options.settings.style + this.options.settings.color + ' active');
-    }
-  }
-  Checklist.prototype.toggleCheckedState = function(li){
-    if(!this.options.multiselect){
-      $.each(this.$element.find('li'),function(){
-        if($(this).data('state')=='on'){
-          console.log('found')
-        }
-      })
-    }
-    isChecked = !isChecked;
-    li.data('state', (isChecked) ? "on" : "off");
-    li.find('.state-icon')
-        .removeClass()
-        .addClass('state-icon '+this.options.settings[li.data('state')]);
-  }
-
-  Checklist.prototype.findLi = function (target) {
-
-  };
 
   Checklist.prototype.getLiById = function(id){
     var li;
@@ -295,7 +269,6 @@
       window.console.error(message);
     }
   };
-
   
   $.fn[pluginName] = function (options, args) {
     var result;
