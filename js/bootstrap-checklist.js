@@ -1,7 +1,7 @@
 /* =========================================================
  * bootstrap-checklist.js v1.0.0
  * =========================================================
- * Copyright 2017 leondryu
+ * Copyright 2017 leon zhang
  * ========================================================= 
  */
 
@@ -11,6 +11,7 @@
   var pluginName = 'checklist';
 
   var _options = {
+    data:null,
     multiselect:false,
     silent:false,
     syncCheck:true,
@@ -49,26 +50,40 @@
 
     _this.$element.addClass('list-group checklist');
 
-    $.ajax({
-      async:false,
-      url:this.options.url,
-      dataType:'json',
-      success:function(response){
-        $.each(response,function(idx,elem){
-          var li=$('<li></li>');
-          li.data('id',elem.id).data('checked',elem.checked==true?true:false)
-            .data('selected',elem.selected==true?true:false)
-            .text(elem.name).addClass('list-group-item').css('cursor','pointer');
-          //anthoer way to store data,
-          //var li='<li data-id="'+elem.id+'" class="list-group-item" style="cursor: pointer;" data-checked="'+elem.checked+'" >'+elem.name+'</li>';
-          _this.$element.append(li);
-        });
-      }
-    });
+    if(null==_this.options.data){
+      $.ajax({
+        async:false,
+        url:_this.options.url,
+        dataType:'json',
+        success:function(response){
+          $.each(response,function(idx,elem){
+            var li=$('<li></li>');
+            li.data('id',elem.id).data('checked',elem.checked==true?true:false)
+              .data('selected',elem.selected==true?true:false)
+              .text(elem.name).addClass('list-group-item').css('cursor','pointer');
+            //anthoer way to store data,
+            //var li='<li data-id="'+elem.id+'" class="list-group-item" style="cursor: pointer;" data-checked="'+elem.checked+'" >'+elem.name+'</li>';
+            _this.$element.append(li);
+          });
+        }
+      });
+    }else{
+      $.each(_this.options.data,function(idx,elem){
+        var li=$('<li></li>');
+        li.data('id',elem.id).data('checked',elem.checked==true?true:false)
+          .data('selected',elem.selected==true?true:false)
+          .text(elem.name).addClass('list-group-item').css('cursor','pointer');
+        _this.$element.append(li);
+      });
+    }
 
     _this.$element.find('.list-group-item').each(function () {
       var $li = $(this);
       $li.css('cursor', 'pointer');
+
+      if($li.data('selected')){
+        $li.addClass(_this.options.settings.style + _this.options.settings.color);
+      }
 
       if($li.find('.state-icon').length == 0 && _this.options.showCheckbox) {
         $li.prepend('<span class="state-icon ' + _this.options.settings[$li.data('checked')==true?'on':'off'] + '"></span>');
@@ -145,57 +160,78 @@
   }
 
   Checklist.prototype.setCheck = function(param,silent){
+    
     if(!this.options.showCheckbox) return;
     var li = this.convertIdentifier(param);
+
     var isChecked = li.data('checked');
     if(isChecked) return;
+    
     li.data('checked',true);
+    
     li.find('.state-icon')
         .removeClass()
         .addClass('state-icon '+this.options.settings['on']);
+    
     if(silent!=undefined && silent){
       this.$element.trigger('onCheck',li);
     }
   }
 
   Checklist.prototype.setUncheck = function(param,silent){
+    
     if(!this.options.showCheckbox) return;
     var li = this.convertIdentifier(param);
+    
     var isChecked = li.data('checked');
     if(!isChecked) return;
+    
     li.data('checked',false);
+    
     li.find('.state-icon')
         .removeClass()
         .addClass('state-icon '+this.options.settings['off']);
+    
     if(silent!=undefined && silent){
       this.$element.trigger('onUncheck',li);
     }
   }
   Checklist.prototype.setSelect = function(param,silent){
     var li = this.convertIdentifier(param);
+    
     if(!this.options.multiselect){
       this.unselectAll();
     }
+    
     var isSelected = li.data('selected');
     if(isSelected) return;
+    
     if(this.options.syncCheck){
       this.setCheck(li);
     }
+    
     li.data('selected',true);
+    
     li.addClass(this.options.settings.style + this.options.settings.color);/*remove the 'active' class to avoid bootstrap default change color behavior.' active'*/
+    
     if(silent!=undefined && silent){
       this.$element.trigger('onSelect',li);
     }
   }
   Checklist.prototype.setUnselect = function(param,silent){
     var li = this.convertIdentifier(param);
+    
     var isSelected = li.data('selected');
     if(!isSelected) return;
+    
     if(this.options.syncCheck){
       this.setUncheck(li);
     }
+    
     li.data('selected',false);
+    
     li.removeClass(this.options.settings.style + this.options.settings.color);/*remove the 'active' class to avoid bootstrap default change color behavior.' active'*/
+    
     if(silent!=undefined && silent){
       this.$element.trigger('onUnselect',li);
     }

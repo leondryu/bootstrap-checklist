@@ -5,6 +5,9 @@ bootstrap-checklist is a jquery plug-in which provide a list with checkbox. Ther
 - Bootstrap v3.3.6
 - jQuery v2.2.1
 
+### Demo
+You can try the bootstrap-checklist on below page.
+https://jsbin.com/sajezuv/edit?output
 ### Usage
 the DOM element
 ```html
@@ -54,8 +57,10 @@ $('#someId').checklist({
 ```
 
 ### List of Options
+##### data
+Array. A javascript array containing the data to be displayed.
 ##### url
-String. Checklist will use this url to retrieve the Data with jquery.ajax method.
+String. Checklist will use this url to retrieve the Data with jquery.ajax method. Be noticed that the the url will not effected when the data param was given.
 ##### multiselect
 Boolean(Default false). Whether or not allow to select mutiple rows.
 ##### showCheckbox
