@@ -61,8 +61,6 @@
             li.data('id',elem.id).data('checked',elem.checked==true?true:false)
               .data('selected',elem.selected==true?true:false)
               .text(elem.name).addClass('list-group-item').css('cursor','pointer');
-            //anthoer way to store data,
-            //var li='<li data-id="'+elem.id+'" class="list-group-item" style="cursor: pointer;" data-checked="'+elem.checked+'" >'+elem.name+'</li>';
             _this.$element.append(li);
           });
         }
@@ -82,7 +80,6 @@
       $li.css('cursor', 'pointer');
 
       if($li.data('selected')){
-        //$li.addClass(_this.options.settings.style + _this.options.settings.color);
         $li.css('color',_this.options.settings.color).css('background-color',_this.options.settings.background_color);
       }
 
@@ -161,59 +158,43 @@
   }
 
   Checklist.prototype.setCheck = function(param,silent){
-    
     if(!this.options.showCheckbox) return;
     var li = this.convertIdentifier(param);
-
     var isChecked = li.data('checked');
     if(isChecked) return;
-    
     li.data('checked',true);
-    
     li.find('.state-icon')
         .removeClass()
         .addClass('state-icon '+this.options.settings['on']);
-    
     if(silent!=undefined && silent){
       this.$element.trigger('onCheck',li);
     }
   }
 
   Checklist.prototype.setUncheck = function(param,silent){
-    
     if(!this.options.showCheckbox) return;
     var li = this.convertIdentifier(param);
-    
     var isChecked = li.data('checked');
     if(!isChecked) return;
-    
     li.data('checked',false);
-    
     li.find('.state-icon')
         .removeClass()
         .addClass('state-icon '+this.options.settings['off']);
-    
     if(silent!=undefined && silent){
       this.$element.trigger('onUncheck',li);
     }
   }
   Checklist.prototype.setSelect = function(param,silent){
     var li = this.convertIdentifier(param);
-    
     if(!this.options.multiselect){
       this.unselectAll();
     }
-    
     var isSelected = li.data('selected');
     if(isSelected) return;
-    
     if(this.options.syncCheck){
       this.setCheck(li);
     }
-    
     li.data('selected',true);
-    
-    //li.addClass(this.options.settings.style + this.options.settings.color);/*remove the 'active' class to avoid bootstrap default change color behavior.' active'*/
     li.css('color',this.options.settings.color).css('background-color',this.options.settings.background_color);
     if(silent!=undefined && silent){
       this.$element.trigger('onSelect',li);
@@ -221,17 +202,12 @@
   }
   Checklist.prototype.setUnselect = function(param,silent){
     var li = this.convertIdentifier(param);
-    
     var isSelected = li.data('selected');
     if(!isSelected) return;
-    
     if(this.options.syncCheck){
       this.setUncheck(li);
     }
-    
     li.data('selected',false);
-    
-    //li.removeClass(this.options.settings.style + this.options.settings.color);/*remove the 'active' class to avoid bootstrap default change color behavior.' active'*/
     li.css('color','#000000').css('background-color','#FFFFFF');
     if(silent!=undefined && silent){
       this.$element.trigger('onUnselect',li);
@@ -269,6 +245,7 @@
       window.console.error(message);
     }
   };
+
   
   $.fn[pluginName] = function (options, args) {
     var result;
