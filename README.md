@@ -60,7 +60,7 @@ $('#someId').checklist({
 ##### data
 Array. A javascript array containing the data to be displayed.
 ##### url
-String. Checklist will use this url to retrieve the Data with jquery.ajax method. Be noticed that the the url will not effected when the data param was given.
+String. Checklist will use this url to retrieve the Data with jquery.ajax method. Be noticed that the url param will be ignored when the data param was given.
 ##### multiselect
 Boolean(Default false). Whether or not allow to select mutiple rows.
 ##### showCheckbox
