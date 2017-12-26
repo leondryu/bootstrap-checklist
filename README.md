@@ -51,8 +51,8 @@ $('#someId').checklist({
     url:'/somePath/someMethod.do',
     multiselect:false,
     settings:{
-		color:'red',
-		backgroud_color:'#1234FF'
+        color:'red',
+        backgroud_color:'#1234FF'
     }
 });
 ```
